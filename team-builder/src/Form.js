@@ -2,13 +2,41 @@ import React, { useState, useEffect } from 'react';
 
 
 function Form(props) {
-    const [data, setData] = useState({
+    const [teamMember,setTeamMember] = useState([
+    ])
+  
+  useEffect(() => {
+    setTeamMember([{
+      name: 'Amin',
+      email: 'amin@gmail.com',
+      role: 'backend'
+    },
+    {
+      name: 'Kolade',
+      email: 'kolade@gmail.com',
+      role: 'backend bro'
+    },
+    {
+      name: 'Alison',
+      email: 'alison@gmail.com',
+      role: 'full stack'
+    },
+    {
+      name: 'Eoin',
+      email: 'eoin@gmail.com',
+      role: 'got a haircut'
+    },
+    {
+      name: 'Rufai',
+      email: 'rufai@gmail.com',
+      role: 'front bro'
+    }])
+    
+  }, [])
+    const [newTeamMember, setNewTeamMember] = useState({
         name: '',
         email: '',
-        role: '',  
-    })
-    const [newTeamMember, setNewTeamMember] = useState({
-
+        role: '', 
     })
     
 
@@ -18,11 +46,11 @@ function Form(props) {
     console.log(newTeamMember)
 
     function changeHandler(e) {
-        setData({
-            ...data,
+        setNewTeamMember({
+            ...newTeamMember,
           [e.target.name]: e.target.value
           })
-          console.log(e.target.name)
+        //   console.log(e.target.name)
     }
     
     function submitHandler(e) {
@@ -32,12 +60,21 @@ function Form(props) {
             email: '',
             role: '', 
         }
-        setData(initialState);
+        teamMember.push(newTeamMember);
+        setNewTeamMember(initialState);
 
     }
     
   
   return (
+      <div>
+        {teamMember.map(member => 
+        <div className="member">
+          <p>name: {member.name}</p>
+          <p>email: {member.email}</p>
+          <p>role: {member.role}</p>
+        </div>
+        )}
     <form onSubmit={submitHandler}>
         <label
          htmlFor="name">name</label>
@@ -45,7 +82,7 @@ function Form(props) {
          id="name"
          name="name"
          placeholder="name"
-         value={data.name}
+         value={newTeamMember.name}
          onChange={changeHandler}></input>
         <label
          htmlFor="email">email</label>
@@ -53,7 +90,7 @@ function Form(props) {
          id="email"
          name="email"
          placeholder="email"
-         value={data.email}
+         value={newTeamMember.email}
          onChange={changeHandler}></input>
         <label
          htmlFor="role">role</label>
@@ -61,10 +98,11 @@ function Form(props) {
          id="role"
          name="role"
          placeholder="role"
-         value={data.role}
+         value={newTeamMember.role}
          onChange={changeHandler}></input>
          <button type="submit">SUBMIT</button>
     </form>
+    </div>
   );
 }
 
